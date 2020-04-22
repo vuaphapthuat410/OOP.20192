@@ -6,6 +6,7 @@
 package hust.soict.hedspi.aims.order;
 
 import hust.soict.hedspi.aims.media.Book;
+import hust.soict.hedspi.aims.media.CompactDisc;
 import hust.soict.hedspi.aims.media.DigitalVideoDisc;
 import hust.soict.hedspi.aims.media.Media;
 import hust.soict.hedspi.aims.utils.MyDate;
@@ -25,9 +26,11 @@ public class Order {
     private static int nbOrders = 0;
     private float ttCost;
     private MyDate dateOrdered;
+    private int id;
     private ArrayList<Media> itemsOrdered = new ArrayList<Media>();
     private Order() {
         dateOrdered = new MyDate();
+        id = nbOrders - 1;
     }
    
     public static Order getInstanceOrder() { //refactor to limit the number of object
@@ -69,23 +72,28 @@ public class Order {
         }
     
         do {            
-            System.out.println("Choose type of media you want to add: ");
-            System.out.println("1. Digital Video Disc.");
-            System.out.println("2. Book.");
+            System.out.println("Choose type of media you want to add : ");
+            System.out.println("1. Book.");
+            System.out.println("2. Compact Disc.");
+            System.out.println("3. Digital Video Disc");
             if(keyboard.hasNextInt())
                 type = Integer.parseInt(keyboard.nextLine());
             else 
-                keyboard.nextLine(); //throw input not numeric.      
-        } while (type != 1 && type != 2);
+                keyboard.nextLine(); //throw input not numeric.
+        } while (type < 1 || type > 3);
         
         switch(type){
             case 1:
-                DigitalVideoDisc newDisc = DigitalVideoDisc.getDisc();
-                itemsOrdered.add(newDisc);
-                break;
-            case 2:
                 Book newBook = Book.getBook();
                 itemsOrdered.add(newBook);
+                break;
+            case 2:
+                CompactDisc newCD = CompactDisc.getCD();
+                itemsOrdered.add(newCD);
+                break;
+            case 3:
+                DigitalVideoDisc newDVD = DigitalVideoDisc.getDVD();
+                itemsOrdered.add(newDVD);
                 break;
         }
     }

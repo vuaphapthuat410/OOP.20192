@@ -25,13 +25,19 @@ public class Aims {
         System.out.println("________________________________");
         System.out.println("Please choose a number: 0-1-2-3-4");
     }
+    
     public static void main(String[] args) {
+        Thread memCon = new Thread(new MemoryDaemon(), "Memory Observation");
+        memCon.setDaemon(true);
+        memCon.start();
+        
         int choice;
         int n = 0;
         int orderId;
         int itemId = 0;
         Scanner keyboard = new Scanner(System.in);
-        Order[] orderList = new Order[Order.MAX_LIMITTED_ORDERS];
+        Order[] orderList = new Order[Order.MAX_LIMITTED_ORDERS];  
+        
         do {            
             showMenu();
             choice = Integer.parseInt(keyboard.nextLine());
@@ -41,17 +47,17 @@ public class Aims {
                     System.out.println("Order created.");
                     break;
                 case 2:
-                    if(!Order.listOrder()) break; //if empty, break.
-                    orderId = Order.getOrderId();
-                    if(orderId == 0) break;
-                    
+                    if(!Order.listOrder()) break; //if empty, break.                   
+                    orderId = Order.getOrderId();                
+                    if(orderId == 0) break; // we set 0 as exit id 
+                        
                     orderList[orderId-1].addMedia(); //cuz print id is real id + 1
                     System.out.println("Add successful");
                     break;
                 case 3:
                     if(!Order.listOrder()) break; //if empty, break.
                     orderId = Order.getOrderId();
-                    if(orderId == 0) break;
+                    if(orderId == 0) break; // we set 0 as exit id 
                     
                     if(orderList[orderId-1].listSize() == 0) {
                         System.out.println("Order is empty. Nothing to delete.");
@@ -83,5 +89,7 @@ public class Aims {
             }
         } while (choice != 0);
         
+        
+        keyboard.close();
     }
 }

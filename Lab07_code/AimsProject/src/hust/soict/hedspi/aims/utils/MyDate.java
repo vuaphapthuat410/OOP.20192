@@ -202,18 +202,6 @@ public class MyDate {
             case 3:
                 dateFormat = "MMMMM d'rd' yyyy";
                 break;
-            case 21: 
-                dateFormat = "MMMMM d'st' yyyy";
-                break;
-            case 22: 
-                dateFormat = "MMMMM d'nd' yyyy";
-                break;
-            case 23:
-                dateFormat = "MMMMM d'rd' yyyy";
-                break;
-            case 31:
-                dateFormat = "MMMMM d'st' yyyy";
-                break;
             default:
                 dateFormat = "MMMMM dd'th' yyyy";
                 break;
